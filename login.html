@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login · Feedback Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<nav>
+  <div class="logo-wrapper">
+    <img src="images/logo.jpeg" alt="Logo" class="nav-logo">
+    <span class="logo">Feedback Portal</span>
+  </div>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="login.html" class="active">Login</a></li>
+    <li><a href="dashboard.html">My Feedback</a></li>
+    <li><a href="submit.html">Submit</a></li>
+    <li><a href="admin.html">Admin</a></li>
+  </ul>
+</nav>
+<div class="login-wrapper">
+  <div class="login-box">
+    <h1>Welcome back</h1>
+    <p>Sign in to your account</p>
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@university.edu" required>
+        <span class="error-msg"></span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••" required>
+        <span class="error-msg"></span>
+      </div>
+      <button type="submit" class="btn btn-primary full-width">Login</button>
+    </form>
+    <div class="demo-creds">
+      <p><strong>Demo accounts (any password)</strong></p>
+      <p><i class="fas fa-graduation-cap"></i> Student: <code>student@university.edu</code></p>
+      <p><i class="fas fa-user-shield"></i> Admin: <code>admin@university.edu</code></p>
+    </div>
+  </div>
+</div>
+<footer>© 2026 Feedback Portal — University Project</footer>
+<div class="overlay" id="confirmOverlay"><div class="dialog"><h3>Are you sure?</h3><p id="confirmMsg"></p><div class="dialog-btns"><button class="btn btn-danger" id="confirmYes">Yes</button><button class="btn btn-primary" id="confirmNo">Cancel</button></div></div></div>
+<script src="js/script.js"></script>
+</body>
+</html>

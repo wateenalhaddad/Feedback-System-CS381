@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Details — Student Feedback System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav>
+  <div class="logo-wrapper">
+    <img src="images/logo.jpeg" alt="Logo" class="nav-logo">
+    <span class="logo">FeedBack System</span>
+  </div>
+  <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="admin.html" class="active">Admin</a></li>
+    <li><a href="#" id="logoutBtn">Logout</a></li>
+  </ul>
+</nav>
+  <!-- ── Main Content ── -->
+  <main>
+
+    <div class="page-header">
+      <h1>Feedback Details</h1>
+      <a href="admin.html" class="btn btn-primary" style="background:var(--text-light);">← Back to Admin</a>
+    </div>
+
+    <!-- Detail card -->
+    <div class="card" style="max-width:640px; margin:0 auto;">
+
+      <h2>Feedback #001</h2>
+
+      <!-- Meta information -->
+      <div class="detail-meta">
+        <span>👤 <strong>Student:</strong> Sara</span>
+        <span>📌 <strong>Category:</strong> Campus Service</span>
+        <span>📅 <strong>Date:</strong> 10 Jan 2025</span>
+        <span>Status: <span class="badge badge-pending" id="detailBadge">Pending</span></span>
+      </div>
+
+      <!-- Feedback message box -->
+      <div class="feedback-detail-box" id="detailMessage">
+        The lab computers are extremely slow. It takes over 5 minutes just to open a browser.
+        Students are wasting a lot of time during practical sessions because of this issue.
+        We would appreciate if the computers could be upgraded or maintained regularly.
+      </div>
+
+      <!-- Admin actions -->
+      <div class="detail-actions">
+        <button class="btn btn-success btn-mark-reviewed" id="markReviewedBtn">
+          ✅ Mark as Reviewed
+        </button>
+        <button class="btn btn-danger btn-delete" id="deleteBtn">
+          🗑 Delete
+        </button>
+      </div>
+
+    </div><!-- /.card -->
+
+    <!-- Admin reply form -->
+    <div class="card" style="max-width:640px; margin:20px auto 0;">
+
+      <h2>Reply to Student</h2>
+
+      <form id="replyForm" data-success-msg="Reply sent to the student!" novalidate>
+        <div class="form-group">
+          <label for="replyMsg">Your Response</label>
+          <textarea
+            id="replyMsg"
+            name="replyMsg"
+            placeholder="Write your reply to the student here…"
+            required
+            minlength="10"
+            maxlength="400"
+          ></textarea>
+          <span class="error-msg"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+      </form>
+
+    </div>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <p>© 2025 Student FeedBack System </p>
+  </footer>
+
+  <!-- Confirm Dialog -->
+  <div class="overlay" id="confirmOverlay">
+    <div class="dialog">
+      <h3>Are you sure?</h3>
+      <p id="confirmMsg">This action cannot be undone.</p>
+      <div class="dialog-btns">
+        <button class="btn btn-danger" id="confirmYes">Yes, delete</button>
+        <button class="btn btn-primary" id="confirmNo">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+
+  <!-- Extra JS specific to this page -->
+  <script>
+    // Override delete on this page to redirect back to admin
+    document.getElementById('deleteBtn').addEventListener('click', function () {
+      showConfirm('Delete this feedback permanently?', () => {
+        showToast('Feedback deleted.', 'danger');
+        setTimeout(() => { window.location.href = 'admin.html'; }, 1500);
+      });
+    });
+
+    // Override mark-reviewed on this page to update the badge inline
+    document.getElementById('markReviewedBtn').addEventListener('click', function () {
+      const badge = document.getElementById('detailBadge');
+      badge.textContent = 'Reviewed';
+      badge.className   = 'badge badge-reviewed';
+      this.disabled     = true;
+      this.textContent  = '✓ Reviewed';
+      showToast('Feedback marked as reviewed.', 'success');
+    });
+  </script>
+
+</body>
+</html>
