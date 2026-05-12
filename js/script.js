@@ -1,4 +1,5 @@
-const API_URL = 'api/';
+const API_BASE = 'http://localhost/Feedback-System-CS381/api';
+
 
 let currentUser = null;
 let feedbacks = [];
