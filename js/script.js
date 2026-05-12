@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost/Feedback-System-CS381/api';
+const API_BASE = 'http://localhost/project381/Feedback-System-CS381/api';
 
 
 let currentUser = null;
@@ -12,7 +12,7 @@ async function api(endpoint, method = 'GET', body = null) {
     };
     if (body) opts.body = JSON.stringify(body);
 
-    const res = await fetch(API_URL + endpoint, opts);
+    const res = await fetch(API_BASE + endpoint, opts);
     if (!res.ok) {
         const err = await res.json().catch(() => ({ error: 'Request failed' }));
         throw new Error(err.error || 'Request failed');
