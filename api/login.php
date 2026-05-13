@@ -11,11 +11,11 @@ $user = $stmt->fetch();
 
 if (!$user) {
     http_response_code(401);
-    echo json_encode(['error' => 'User not found. Use student@university.edu or admin@university.edu']);
+    echo json_encode(['error' => 'User not found']);
     exit;
 }
 
-// Legacy demo accounts have literal password 'any'
+// Demo accounts have password 'any' stored as plain text
 if ($user['password'] !== 'any' && !password_verify($password, $user['password'])) {
     http_response_code(401);
     echo json_encode(['error' => 'Invalid password']);

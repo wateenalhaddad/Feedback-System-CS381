@@ -1,5 +1,4 @@
-const API_BASE = 'http://localhost/project381/Feedback-System-CS381/api';
-
+const API_BASE = './api/';
 
 let currentUser = null;
 let feedbacks = [];
@@ -205,7 +204,7 @@ async function renderStudentDashboard() {
         return;
     }
 
-    const myFeedbacks = feedbacks.filter(f => f.studentId === user.id);
+    const myFeedbacks = feedbacks.filter(f => f.user_id === user.id);
     const totalEl = document.getElementById('totalCount');
     const pendingEl = document.getElementById('pendingCount');
     const reviewedEl = document.getElementById('reviewedCount');
@@ -222,7 +221,7 @@ async function renderStudentDashboard() {
     container.innerHTML = myFeedbacks.map(fb => `
         <li class="feedback-item">
             <div>
-                <div class="feedback-item-text">${escapeHtml(fb.title)} — ${escapeHtml(fb.content.substring(0, 80))}</div>
+                <div class="feedback-item-text">${escapeHtml(fb.target)} — ${escapeHtml(fb.message.substring(0, 80))}</div>
                 <div class="feedback-item-type">${fb.category || 'general'} · ${fb.date}</div>
             </div>
             <span class="badge badge-${fb.status}">${fb.status}</span>
@@ -245,7 +244,7 @@ async function renderAdminTable(filterStatus = 'all') {
     if (filterStatus !== 'all') filtered = filtered.filter(f => f.status === filterStatus);
 
     if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5">No feedback found.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5">No feedback found. </td></tr>';
         return;
     }
 
@@ -253,7 +252,7 @@ async function renderAdminTable(filterStatus = 'all') {
         <tr data-fid="${fb.id}">
             <td data-label="Student">${escapeHtml(fb.studentName)}</td>
             <td data-label="Category">${escapeHtml(fb.category || 'general')}</td>
-            <td data-label="Feedback">${escapeHtml(fb.title)} - ${escapeHtml(fb.content.substring(0, 50))}</td>
+            <td data-label="Feedback">${escapeHtml(fb.target)} - ${escapeHtml(fb.message.substring(0, 50))}</td>
             <td data-label="Status"><span class="badge badge-${fb.status}">${fb.status}</span></td>
             <td data-label="Actions">
                 <div class="action-btns">
