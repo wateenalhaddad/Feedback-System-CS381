@@ -30,7 +30,6 @@ if ($role === 'admin') {
     $feedbacks = $stmt->fetchAll();
 }
 
-// Add formatted date
 foreach ($feedbacks as &$fb) {
     $fb['date'] = date('M d, Y', strtotime($fb['created_at']));
     $fb['studentId'] = $fb['user_id']; // for frontend filtering

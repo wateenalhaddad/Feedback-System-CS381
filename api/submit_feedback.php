@@ -20,6 +20,12 @@ if (!$title || !$content) {
 
 $stmt = $pdo->prepare("INSERT INTO feedback (user_id, target, message, category) VALUES (?, ?, ?, ?)");
 $stmt->execute([$_SESSION['user_id'], $title, $content, $category]);
-
+$stmt = $pdo->prepare("SELECT id FROM users WHERE id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+if (!$stmt->fetch()) {
+    http_response_code(401);
+    echo json_encode(['error' => 'User no longer exists. Please login again.']);
+    exit;
+}
 echo json_encode(['success' => true, 'id' => $pdo->lastInsertId()]);
 ?>

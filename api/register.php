@@ -7,7 +7,7 @@ $email    = trim($data['email'] ?? '');
 $password = $data['password'] ?? '';
 $role     = $data['role'] ?? 'student';
 
-// Validation
+
 if (!$name || !$email || !$password) {
     http_response_code(400);
     echo json_encode(['error' => 'Missing required fields']);
@@ -30,7 +30,7 @@ if (!in_array($role, ['student', 'admin'])) {
     $role = 'student';
 }
 
-// Check if email already exists
+
 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->execute([$email]);
 if ($stmt->fetch()) {
@@ -39,14 +39,13 @@ if ($stmt->fetch()) {
     exit;
 }
 
-// Hash the password (for new users, not demo 'any')
+
 $hash = password_hash($password, PASSWORD_DEFAULT);
 $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
 $stmt->execute([$name, $email, $hash, $role]);
 
 $userId = $pdo->lastInsertId();
 
-// Auto-login after registration
 $_SESSION['user_id'] = $userId;
 $_SESSION['user_role'] = $role;
 

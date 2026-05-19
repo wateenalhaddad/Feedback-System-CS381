@@ -15,7 +15,7 @@ if (!$user) {
     exit;
 }
 
-// Demo accounts have password 'any' stored as plain text
+
 if ($user['password'] !== 'any' && !password_verify($password, $user['password'])) {
     http_response_code(401);
     echo json_encode(['error' => 'Invalid password']);

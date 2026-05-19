@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submit Feedback</title>
@@ -8,6 +11,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <script>
+    // Immediate authentication check before page renders
+    fetch('./api/me.php')
+        .then(res => {
+            if (!res.ok) {
+                window.location.replace('login.html');
+            }
+            return res.json();
+        })
+        .catch(() => {
+            window.location.replace('login.html');
+        });
+</script>
 <nav>
   <div class="logo-wrapper">
     <img src="images/logo.jpeg" alt="Logo" class="nav-logo">

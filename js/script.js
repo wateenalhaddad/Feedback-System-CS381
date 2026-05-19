@@ -20,11 +20,26 @@ async function api(endpoint, method = 'GET', body = null) {
 }
 
 async function initApp() {
+    // Force clear any cached user from previous sessions
+currentUser = null;
+sessionStorage.clear();
+localStorage.clear();
     try {
         currentUser = await api('me.php');
     } catch (e) {
         currentUser = null;
     }
+    try {
+    currentUser = await api('me.php');
+} catch (e) {
+    currentUser = null;
+    // If not logged in, and we are on a protected page, redirect
+    if (window.location.pathname.includes('dashboard.html') || 
+        window.location.pathname.includes('submit.html') ||
+        window.location.pathname.includes('admin.html')) {
+        window.location.replace('login.html');
+    }
+}
 
     initHamburger();
     highlightActiveNav();
@@ -108,11 +123,21 @@ function bindLogout() {
     if (!btn) return;
     btn.addEventListener('click', async (e) => {
         e.preventDefault();
-        try { await api('logout.php', 'POST'); } catch (e) {}
+        try { 
+            await api('logout.php', 'POST'); 
+        } catch (e) {
+            console.error('Logout error:', e);
+        }
         currentUser = null;
-        window.location.href = 'login.html';
+        // Clear any stored user data in the browser
+        sessionStorage.clear();
+        localStorage.clear();
+        // Force a complete page reload and prevent back-button login
+        window.location.replace('login.html');
     });
 }
+
+
 
 function requireAuth(roleRequired = null) {
     if (!currentUser) {
